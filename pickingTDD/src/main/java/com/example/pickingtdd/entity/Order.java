@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class Order {
 
-    private long orderId;
-    private String state;
+    private Long orderId;
+    private OrderStateEnum state;
 }
