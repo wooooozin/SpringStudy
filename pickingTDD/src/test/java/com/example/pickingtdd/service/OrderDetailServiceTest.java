@@ -1,11 +1,15 @@
 package com.example.pickingtdd.service;
 
+import com.example.pickingtdd.entity.Order;
 import com.example.pickingtdd.entity.OrderDetail;
 import com.example.pickingtdd.entity.Sku;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 @SpringBootTest
 public class OrderDetailServiceTest {
@@ -13,17 +17,28 @@ public class OrderDetailServiceTest {
     @Autowired
     OrderDetailService orderDetailService;
 
+    OrderDetail orderDetailSuccess;
+    OrderDetail orderDetailFail;
+
+    @BeforeEach
+    public void setup() {
+        orderDetailSuccess = new OrderDetail();
+        orderDetailSuccess.setOrderId(1L);
+        orderDetailSuccess.setOrderDetailId(1L);
+        orderDetailSuccess.setSku(new Sku());
+        orderDetailSuccess.setAmount(10);
+
+        orderDetailFail = new OrderDetail();
+    }
+
+
     @Test
     void testOrderDetailMake_success() {
         //given
         OrderDetail orderDetail = new OrderDetail();
-        orderDetail.setOrderId(1L);
-        orderDetail.setOrderDetailId(1L);
-        orderDetail.setSku(new Sku());
-        orderDetail.setAmount(10);
 
         try {
-            orderDetail = orderDetailService.makeOrderDetail(orderDetail);
+            orderDetail = orderDetailService.makeOrderDetail(orderDetailSuccess);
         } catch (Exception e) {
 
         }
@@ -34,11 +49,23 @@ public class OrderDetailServiceTest {
     }
 
     @Test
-    void orderDetailValidationTest() {
-        //given
+    void testOrderDetailValidation_success() {
+        OrderDetail orderDetail = new OrderDetail();
 
-        // when
+        try {
+            orderDetail = orderDetailService.makeOrderDetail(orderDetailSuccess);
+        } catch (Exception e) {
+            fail("should not throw exception");
+        }
+        Assertions.assertEquals(1L, orderDetail.getOrderId());
+    }
 
-        // then
+    @Test
+    void testOrderValidation_fail() {
+        Exception e = Assertions.assertThrows(Exception.class, () -> {
+            orderDetailService.makeOrderDetail(orderDetailFail);
+        });
+
+        Assertions.assertEquals("orderDetail validation fail", e.getMessage());
     }
 }
