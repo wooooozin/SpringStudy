@@ -9,8 +9,11 @@ SKU
 
 # TO-DO
 OrderDetail -> 물품 수량
+OrderDetail 유혀성 검사
+
 
 # DONE
 ORDER 생성
 ORDER 검증
 ORDER STATE enum Type
+OrderDetail 생성
