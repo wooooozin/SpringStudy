@@ -2,29 +2,41 @@ package com.example.pickingtdd.service;
 
 
 import com.example.pickingtdd.entity.Order;
+import com.example.pickingtdd.entity.OrderDetail;
 import com.example.pickingtdd.entity.OrderStateEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 public class OrderServiceTest {
 
-    @Autowired
-    OrderService orderService;
+    @InjectMocks
+    OrderService orderService = new OrderServiceImpl();
+
+    @Mock
+    OrderDetailService orderDetailService;
 
     Order orderSuccess;
     Order orderFail;
 
     @BeforeEach
     public void orderInit() {
+        OrderDetail orderDetail = new OrderDetail();
         orderSuccess = new Order();
         orderSuccess.setOrderId(1L);
         orderSuccess.setState(OrderStateEnum.ORDERED);
+        orderSuccess.setOrderDetailList(Arrays.asList(orderDetail));
 
         orderFail = new Order();
         orderFail.setOrderId(null);
