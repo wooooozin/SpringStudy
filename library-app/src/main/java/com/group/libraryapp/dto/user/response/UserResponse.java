@@ -8,10 +8,10 @@ public class UserResponse {
     private String name;
     private Integer age;
 
-    public UserResponse(long id, User user) {
+    public UserResponse(long id, String name, Integer age) {
         this.id = id;
-        this.name = user.getName();
-        this.age = user.getAge();
+        this.name = name;
+        this.age = age;
     }
 
     public long getId() {
