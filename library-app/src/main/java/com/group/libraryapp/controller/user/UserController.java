@@ -45,6 +45,12 @@ public class UserController {
     public void updateUser(
         @RequestBody UserUpdateRequest request
     ) {
+        String readSql = "SELECT * FROM user WHERE id = ?";
+        boolean isUserNotExist = jdbcTemplate.query(readSql, (rs, rowNum) -> 0, request.getId()).isEmpty();
+        if (!isUserNotExist) {
+            throw new IllegalArgumentException();
+        }
+
         String sql = "UPDATE USER SET NAME = ? WHERE id = ?";
         jdbcTemplate.update(sql, request.getName(), request.getId());
     }
@@ -56,6 +62,5 @@ public class UserController {
         String sql = "DELETE FROM USER WHERE NAME = ?";
         jdbcTemplate.update(sql, name);
     }
-
 
 }
