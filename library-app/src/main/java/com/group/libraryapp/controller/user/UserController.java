@@ -4,6 +4,7 @@ import com.group.libraryapp.dto.user.request.UserCreateRequest;
 import com.group.libraryapp.dto.user.request.UserUpdateRequest;
 import com.group.libraryapp.dto.user.response.UserResponse;
 import java.util.List;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,25 +43,37 @@ public class UserController {
     }
 
     @PutMapping("/user")
-    public void updateUser(
+    public ResponseEntity<String> updateUser(
         @RequestBody UserUpdateRequest request
     ) {
         String readSql = "SELECT * FROM user WHERE id = ?";
         boolean isUserNotExist = jdbcTemplate.query(readSql, (rs, rowNum) -> 0, request.getId()).isEmpty();
-        if (!isUserNotExist) {
-            throw new IllegalArgumentException();
+        if (isUserNotExist) {
+            throw new IllegalArgumentException("User with ID " + request.getId() + " not found.");
         }
 
         String sql = "UPDATE USER SET NAME = ? WHERE id = ?";
+
         jdbcTemplate.update(sql, request.getName(), request.getId());
+
+        return ResponseEntity.ok("User updated successfully"); // HTTP 응답
     }
 
+
     @DeleteMapping("/user")
-    public void deleteUser(
+    public ResponseEntity<String> deleteUser(
         @RequestParam String name
     ) {
-        String sql = "DELETE FROM USER WHERE NAME = ?";
+
+        String readSql = "SELECT * FROM user WHERE name = ?";
+        boolean isUserNotExist = jdbcTemplate.query(readSql, (rs, rowNum) -> 0, name).isEmpty();
+        if (isUserNotExist) {
+            throw new IllegalArgumentException("User with name " + name + " not found.");
+        }
+        String sql = "DELETE FROM user WHERE name = ?";
         jdbcTemplate.update(sql, name);
+
+        return ResponseEntity.ok("User deleted successfully");
     }
 
 }
