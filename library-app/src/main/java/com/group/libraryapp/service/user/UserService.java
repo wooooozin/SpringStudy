@@ -1,23 +1,42 @@
 package com.group.libraryapp.service.user;
 
+import com.group.libraryapp.dto.user.request.UserCreateRequest;
 import com.group.libraryapp.dto.user.request.UserUpdateRequest;
-import org.springframework.http.ResponseEntity;
+import com.group.libraryapp.dto.user.response.UserResponse;
+import com.group.libraryapp.repository.user.UserRepository;
+import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class UserService {
 
-    public void updateUser(JdbcTemplate jdbcTemplate, UserUpdateRequest request) {
+    private final UserRepository userRepository;
 
-        String readSql = "SELECT * FROM user WHERE id = ?";
-        boolean isUserNotExist = jdbcTemplate.query(readSql, (rs, rowNum) -> 0, request.getId()).isEmpty();
-        if (isUserNotExist) {
+    public void saveUser(UserCreateRequest request) {
+        userRepository.saveUser(request.getName(), request.getAge());
+    }
+
+    public UserService(JdbcTemplate jdbcTemplate) {
+        userRepository = new UserRepository(jdbcTemplate);
+    }
+
+    public List<UserResponse> getUsers() {
+        return userRepository.geUsers();
+    }
+
+    public void updateUser(UserUpdateRequest request) {
+
+        if (userRepository.isUserNotExist(request.getId())) {
             throw new IllegalArgumentException("User with ID " + request.getId() + " not found.");
         }
+        userRepository.updateUserName(request.getName(), request.getId());
+    }
 
-        String sql = "UPDATE USER SET NAME = ? WHERE id = ?";
+    public void deleteUser(String name) {
 
-        jdbcTemplate.update(sql, request.getName(), request.getId());
-
+        if (userRepository.isUserNotExist(name)) {
+            throw new IllegalArgumentException("User with name " + name + " not found.");
+        }
+        userRepository.deleteUser(name);
     }
 
 }
