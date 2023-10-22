@@ -3,6 +3,7 @@ package com.group.libraryapp.controller.user;
 import com.group.libraryapp.dto.user.request.UserCreateRequest;
 import com.group.libraryapp.dto.user.request.UserUpdateRequest;
 import com.group.libraryapp.dto.user.response.UserResponse;
+import com.group.libraryapp.service.user.UserService;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final JdbcTemplate jdbcTemplate;
+    private final UserService userService = new UserService();
 
     public UserController(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -43,20 +45,10 @@ public class UserController {
     }
 
     @PutMapping("/user")
-    public ResponseEntity<String> updateUser(
+    public void updateUser(
         @RequestBody UserUpdateRequest request
     ) {
-        String readSql = "SELECT * FROM user WHERE id = ?";
-        boolean isUserNotExist = jdbcTemplate.query(readSql, (rs, rowNum) -> 0, request.getId()).isEmpty();
-        if (isUserNotExist) {
-            throw new IllegalArgumentException("User with ID " + request.getId() + " not found.");
-        }
-
-        String sql = "UPDATE USER SET NAME = ? WHERE id = ?";
-
-        jdbcTemplate.update(sql, request.getName(), request.getId());
-
-        return ResponseEntity.ok("User updated successfully"); // HTTP 응답
+        userService.updateUser(jdbcTemplate, request);
     }
 
 
