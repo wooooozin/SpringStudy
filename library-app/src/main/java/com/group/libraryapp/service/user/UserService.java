@@ -5,18 +5,19 @@ import com.group.libraryapp.dto.user.request.UserUpdateRequest;
 import com.group.libraryapp.dto.user.response.UserResponse;
 import com.group.libraryapp.repository.user.UserRepository;
 import java.util.List;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserService {
 
     private final UserRepository userRepository;
 
-    public void saveUser(UserCreateRequest request) {
-        userRepository.saveUser(request.getName(), request.getAge());
+    public UserService(UserRepository userRepository) {
+        this.userRepository =userRepository;
     }
 
-    public UserService(JdbcTemplate jdbcTemplate) {
-        userRepository = new UserRepository(jdbcTemplate);
+    public void saveUser(UserCreateRequest request) {
+        userRepository.saveUser(request.getName(), request.getAge());
     }
 
     public List<UserResponse> getUsers() {
