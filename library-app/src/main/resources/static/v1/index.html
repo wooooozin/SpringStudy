@@ -15,5 +15,49 @@
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root"></div>
+<!-- 이미지 업로드 폼 추가 -->
+<div style="margin-top: 20px; text-align: center;">
+    <h3>이미지 업로드</h3>
+    <input type="file" id="imageUpload" accept="image/*">
+    <button onclick="handleImageUpload()">업로드</button>
+</div>
+<div style="margin-top: 20px; text-align: center;">
+    <h3>업로드된 이미지</h3>
+    <img id="uploadedImage" src="https://valuewith/testLoopy.jpeg">
+</div>
+<script>
+    function handleImageUpload() {
+        const fileInput = document.getElementById("imageUpload");
+        const uploadedImage = document.getElementById("uploadedImage");
+
+        if (fileInput.files.length > 0) {
+            // FormData 객체 생성
+            const formData = new FormData();
+            formData.append("file", fileInput.files[0]);
+
+            // XMLHttpRequest 객체 생성
+            const xhr = new XMLHttpRequest();
+
+            // 응답 처리
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        alert('업로드 성공! URL: ' + xhr.responseText);
+                        // 이미지 태그의 src를 업로드된 이미지 URL로 업데이트
+                        uploadedImage.src = xhr.responseText;
+                    } else {
+                        alert('업로드 실패!');
+                    }
+                }
+            };
+
+            // POST 요청으로 업로드
+            xhr.open("POST", "/upload", true);
+            xhr.send(formData);
+        } else {
+            alert('이미지를 선택해주세요.');
+        }
+    }
+</script>
 </body>
 </html>
