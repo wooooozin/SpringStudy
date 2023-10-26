@@ -3,16 +3,16 @@ package com.group.libraryapp.service.user;
 import com.group.libraryapp.dto.user.request.UserCreateRequest;
 import com.group.libraryapp.dto.user.request.UserUpdateRequest;
 import com.group.libraryapp.dto.user.response.UserResponse;
-import com.group.libraryapp.repository.user.UserRepository;
+import com.group.libraryapp.repository.user.UserJDBCRepository;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserServiceV1 {
 
-    private final UserRepository userRepository;
+    private final UserJDBCRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserServiceV1(UserJDBCRepository userRepository) {
         this.userRepository =userRepository;
     }
 
