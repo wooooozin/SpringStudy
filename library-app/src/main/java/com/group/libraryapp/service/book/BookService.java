@@ -45,7 +45,7 @@ public class BookService {
         User user = userRepository.findByName(requestDto.getUserName())
             .orElseThrow(IllegalArgumentException::new);
 
-        userLoanHistoryRepository.save(new UserLoanHistory(user, book.getName()));
+        user.loanBook(book.getName());
     }
 
     @Transactional
@@ -53,10 +53,6 @@ public class BookService {
         User user = userRepository.findByName(requestDto.getUserName())
             .orElseThrow(IllegalArgumentException::new);
 
-        UserLoanHistory userLoanHistory = userLoanHistoryRepository.findByUserIdAndBookName(user.getId(),
-            requestDto.getBookName())
-            .orElseThrow(IllegalArgumentException::new);
-        userLoanHistory.doReturn();
-        }
+        user.returnBook(requestDto.getBookName());
 
 }

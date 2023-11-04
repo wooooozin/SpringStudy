@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import lombok.Getter;
 
 @Entity
 public class UserLoanHistory {
@@ -16,6 +17,7 @@ public class UserLoanHistory {
     @ManyToOne
     private User user;
 
+    @Getter
     private String bookName;
 
     private boolean isReturn;
@@ -33,4 +35,5 @@ public class UserLoanHistory {
     public void doReturn() {
         this.isReturn = true;
     }
+
 }
