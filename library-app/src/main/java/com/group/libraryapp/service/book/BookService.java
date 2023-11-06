@@ -54,5 +54,6 @@ public class BookService {
             .orElseThrow(IllegalArgumentException::new);
 
         user.returnBook(requestDto.getBookName());
+    }
 
 }
