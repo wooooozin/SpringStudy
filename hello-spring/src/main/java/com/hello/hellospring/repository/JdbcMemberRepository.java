@@ -1,6 +1,7 @@
 package com.hello.hellospring.repository;
 
 import com.hello.hellospring.domain.Member;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,7 +29,7 @@ public class JdbcMemberRepository implements MemberRepository {
         ResultSet rs = null;
 
         try {
-            connection = dataSource.getConnection();
+            connection = getConnection();
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setString(1, member.getName());
@@ -46,6 +47,10 @@ public class JdbcMemberRepository implements MemberRepository {
         } finally {
             close(connection, preparedStatement, rs);
         }
+    }
+
+    private Connection getConnection() {
+        return DataSourceUtils.getConnection(dataSource);
     }
 
     private void close(Connection connection, PreparedStatement preparedStatement, ResultSet rs) {
