@@ -1,8 +1,10 @@
-package hello.servlet.web.frontcotroller.v1.controller;
+package hello.servlet.web.frontcotroller.v2.controller;
 
 import hello.servlet.domain.member.Member;
 import hello.servlet.domain.member.MemberRepository;
+import hello.servlet.web.frontcotroller.MyView;
 import hello.servlet.web.frontcotroller.v1.ControllerV1;
+import hello.servlet.web.frontcotroller.v2.ControllerV2;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,18 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class MemberListControllerV1 implements ControllerV1 {
+public class MemberListControllerV2 implements ControllerV2 {
 
     private final MemberRepository memberRepository = MemberRepository.getInstance();
 
     @Override
-    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Member> members = memberRepository.findAll();
-
         request.setAttribute("members", members);
-
-        String path = "/WEB-INF/views/members.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-        dispatcher.forward(request, response);
+        return new MyView("/WEB-INF/views/members.jsp");
     }
 }

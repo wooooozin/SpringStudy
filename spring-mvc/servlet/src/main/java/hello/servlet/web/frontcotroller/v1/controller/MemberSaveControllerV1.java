@@ -2,7 +2,7 @@ package hello.servlet.web.frontcotroller.v1.controller;
 
 import hello.servlet.domain.member.Member;
 import hello.servlet.domain.member.MemberRepository;
-import hello.servlet.web.frontcotroller.ControllerV1;
+import hello.servlet.web.frontcotroller.v1.ControllerV1;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

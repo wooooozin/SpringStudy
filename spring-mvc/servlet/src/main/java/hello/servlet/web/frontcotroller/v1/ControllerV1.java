@@ -1,4 +1,4 @@
-package hello.servlet.web.frontcotroller;
+package hello.servlet.web.frontcotroller.v1;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
