@@ -5,7 +5,11 @@ import hello.servlet.web.frontcotroller.MyView;
 import hello.servlet.web.frontcotroller.v3.controller.MemberFormControllerV3;
 import hello.servlet.web.frontcotroller.v3.controller.MemberListControllerV3;
 import hello.servlet.web.frontcotroller.v3.controller.MemberSaveControllerV3;
+import hello.servlet.web.frontcotroller.v4.controller.MemberFormControllerV4;
+import hello.servlet.web.frontcotroller.v4.controller.MemberListControllerV4;
+import hello.servlet.web.frontcotroller.v4.controller.MemberSaveControllerV4;
 import hello.servlet.web.frontcotroller.v5.adapter.ControllerV3HandlerAdapter;
+import hello.servlet.web.frontcotroller.v5.adapter.ControllerV4HandlerAdapter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,12 +34,18 @@ public class FrontControllerServletV5 extends HttpServlet {
 
     private void initHandlerAdapters() {
         handlerAdapters.add(new ControllerV3HandlerAdapter());
+        handlerAdapters.add(new ControllerV4HandlerAdapter());
     }
 
     private void initHandlerMappingMap() {
         handlerMappingMap.put("/front-controller/v5/v3/members/new-form", new MemberFormControllerV3());
         handlerMappingMap.put("/front-controller/v5/v3/members/save", new MemberSaveControllerV3());
         handlerMappingMap.put("/front-controller/v5/v3/members", new MemberListControllerV3());
+
+        //V4
+        handlerMappingMap.put("/front-controller/v5/v4/members/new-form", new MemberFormControllerV4());
+        handlerMappingMap.put("/front-controller/v5/v4/members/save", new MemberSaveControllerV4());
+        handlerMappingMap.put("/front-controller/v5/v4/members", new MemberListControllerV4());
     }
 
     @Override
