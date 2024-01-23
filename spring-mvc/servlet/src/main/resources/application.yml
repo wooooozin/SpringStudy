@@ -5,3 +5,9 @@ logging:
       apache:
         coyote:
           http11: DEBUG
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
