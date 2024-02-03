@@ -8,9 +8,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpEntity;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -48,6 +50,25 @@ public class RequestJsonController {
     log.info("message Body = {}", messageBody);
     log.info("username = {}, age = {}", messageBody.getUsername(), messageBody.getAge());
     return "ok";
+  }
+
+  @ResponseBody
+  @PostMapping("/request-body-json-v4")
+  public String requestJsonV4(HttpEntity<HelloData> data)
+      throws IOException {
+    HelloData helloData = data.getBody();
+    log.info("message Body = {}", helloData);
+    log.info("username = {}, age = {}", helloData.getUsername(), helloData.getAge());
+    return "ok";
+  }
+
+  @ResponseBody
+  @PostMapping("/request-body-json-v5")
+  public HelloData requestJsonV5(@RequestBody HelloData data)
+      throws IOException {
+    log.info("message Body = {}", data);
+    log.info("username = {}, age = {}", data.getUsername(), data.getAge());
+    return data;
   }
 
 }
