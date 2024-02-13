@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -71,5 +70,22 @@ public class BasicItemController {
     itemRepository.save(item);
 //    model.addAttribute("item", item);
     return "basic/item";
+  }
+
+  @GetMapping("{itemId}/edit")
+  public String editForm(
+    @PathVariable Long itemId, Model model
+  ) {
+    Item item = itemRepository.findById(itemId);
+    model.addAttribute("item", item);
+    return "basic/editForm";
+  }
+
+  @PostMapping("{itemId}/edit")
+  public String editSaveForm(
+      @PathVariable Long itemId, @ModelAttribute Item item
+  ) {
+    itemRepository.update(itemId, item);
+    return "redirect:/basic/items/{itemId}";
   }
 }
