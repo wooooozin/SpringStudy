@@ -69,7 +69,7 @@ public class BasicItemController {
 
     itemRepository.save(item);
 //    model.addAttribute("item", item);
-    return "basic/item";
+    return "redirect:/basic/items/" + item.getId();
   }
 
   @GetMapping("{itemId}/edit")
