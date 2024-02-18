@@ -6,17 +6,51 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.woozi.com.woozi.domain.Board;
+import com.woozi.com.woozi.repository.BoardRepository;
 
+import lombok.RequiredArgsConstructor;
+/**
+ * 게시판 Service
+ * @author hyou
+ */
 @Service
-public interface BoardService {
+@RequiredArgsConstructor
+public class BoardService {
 
-	List<Board> findAll();
+	private BoardRepository boardRepository;
 	
-	Board getBoardDetail(Long boardSeq);
+	/**
+	 * 목록 리
+	 * @return
+	 */
+	List<Board> findAll() {
+		return boardRepository.findAll();
+	}
 	
-	void saveBoard(Board board);
+	/**
+	 * 목록 상세보기
+	 * @param boardSeq
+	 * @return
+	 */
+	Board getBoardDetail(Long boardSeq) {
+		return boardRepository.getBoardDetail(boardSeq);
+	}
 	
-	void deleteBoard(Long boardSeq);
+	/**
+	 * 게시물 저장
+	 * @param board
+	 */
+	void saveBoard(Board board) {
+		boardRepository.saveBoard(board);
+	}
+	
+	/**
+	 * 게시물 삭제
+	 * @param boardSeq
+	 */
+	void deleteBoard(Long boardSeq) {
+		boardRepository.deleteBoard(boardSeq);
+	}
 	
 	
 }
