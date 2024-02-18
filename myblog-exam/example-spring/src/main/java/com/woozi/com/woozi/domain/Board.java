@@ -9,9 +9,10 @@ import lombok.Setter;
 @Setter
 public class Board {
 
-	private long boardSeq;
+	private Long boardSeq;
 	private String title;
 	private String content;
 	private Date regDate;
+	private Boolean isDeleted;
 	
 }
