@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import com.woozi.com.woozi.domain.Board;
 
+
+
 @Repository
 public interface BoardRepository {
 
