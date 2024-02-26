@@ -24,5 +24,34 @@
 		WHERE BOARD_SEQ = #{boardSeq}
 		ORDER BY B.REG_DATE DESC
 	</select>
+	
+	<insert id="saveBoard" parameterType="com.woozi.com.woozi.domain.Board">
+	INSERT INTO T_BOARD
+	(
+	TITLE,
+	CONTENT,
+	REG_DATE	
+	)
+	VALUES
+	(
+	#{title},
+	#{content},
+	NOW()
+	)
+	</insert>
+	
+	<update id="updateBoard" parameterType="com.woozi.com.woozi.domain.Board">
+	UPDATE T_BOARD
+	SET
+	(
+	TITLE = #{title},
+	CONTENT = #{content}
+	WHERE BOARD_SEQ = #{boardSeq}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="java.lang.Long">
+	DELETE FROM T_BOARD
+	WHERE BAORD_SEQ = #{boardSeq}
+	</delete>
 
 </mapper>

@@ -19,5 +19,7 @@ public interface BoardRepository {
 	
 	void deleteBoard(Long boardSeq);
 	
+	void updateBoard(Board board);
+	
 	
 }

@@ -44,6 +44,10 @@ public class BoardService {
 		boardRepository.saveBoard(board);
 	}
 	
+	public void updateBoard(Board board) {
+		boardRepository.updateBoard(board);
+	}
+	
 	/**
 	 * 게시물 삭제
 	 * @param boardSeq
