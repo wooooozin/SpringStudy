@@ -16,10 +16,10 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/**")
+@RequestMapping("/api/board")
 public class BoardController {
 
-	private BoardService boardService;
+	private final BoardService boardService;
 	
 	@GetMapping
 	public List<Board> getList() {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="package com.woozi.com.woozi.repository.BoardRepository">
+<mapper namespace="package com.woozi.repository.BoardRepository">
 
 	<select id="getList" parameterType="com.woozi.com.woozi.domain.Board" resultType="com.woozi.com.woozi.domain.Board">
 		SELECT
@@ -13,7 +13,7 @@
 		ORDER BY B.REG_DATE DESC
 	</select>
 
-	<select id="getList" parameterType="java.lang.Long" resultType="com.woozi.com.woozi.domain.Board">
+	<select id="getBoardDetail" parameterType="java.lang.Long" resultType="com.woozi.com.woozi.domain.Board">
 		SELECT
 			B.BOARDSEQ,
 			B.TITLE

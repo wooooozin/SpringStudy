@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BoardService {
 
-	private BoardRepository boardRepository;
+	private final BoardRepository boardRepository;
 	
 	/**
 	 * 목록 리턴
