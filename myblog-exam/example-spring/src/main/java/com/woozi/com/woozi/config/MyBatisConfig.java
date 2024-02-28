@@ -22,7 +22,7 @@ public class MyBatisConfig {
     ) throws Exception {
     	SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
     	sqlSessionFactory.setDataSource(dataSource);
-    	sqlSessionFactory.setMapperLocations(applicationContext.getResources("classpath:mappers/*.xml"));
+    	sqlSessionFactory.setMapperLocations(applicationContext.getResources("classpath:mappers/**.xml"));
     	return sqlSessionFactory.getObject();
     }
     
