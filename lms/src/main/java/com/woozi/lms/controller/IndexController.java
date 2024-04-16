@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
 
   @GetMapping("/")
-  public String testIndexPage(
+  public String showIndexPage(
       Model model
   ) {
     model.addAttribute("welcome", "welcome to the site");
