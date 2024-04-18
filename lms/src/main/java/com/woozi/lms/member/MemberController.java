@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class MemberController {
 
+  private final MemberService memberService;
+
   @GetMapping("/register")
   public String moveToMemberRegisterPage() {
     return "member/register";
@@ -26,6 +28,7 @@ public class MemberController {
   ) {
     try {
       log.info("URL :: /memeber/register :: INPUT {}", member);
+      memberService.registerMember(member);
       return ResponseEntity.ok("회원등록 완료");
     } catch (Exception e) {
       log.error(e.toString());
