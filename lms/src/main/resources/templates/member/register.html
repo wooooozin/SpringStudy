@@ -66,8 +66,8 @@
           alert(data);
           location.href = '/member/login';
         },
-        error: function() {
-          alert('회원가입 요청 중 오류가 발생했습니다.');
+        error: function(error) {
+          alert(error.responseText, '회원가입 요청 중 오류가 발생했습니다.');
         }
       });
     });

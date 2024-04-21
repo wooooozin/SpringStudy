@@ -27,12 +27,15 @@ public class MemberController {
       @RequestBody MemberRequestDto member
   ) {
     try {
-      log.info("URL :: /memeber/register :: INPUT {}", member);
-      memberService.registerMember(member);
-      return ResponseEntity.ok("회원등록 완료");
+      log.info("URL :: /memeber/register :: INPUT {}", member.getEmail());
+      boolean isRegister = memberService.registerMember(member);
+      if ( isRegister ) {
+        return ResponseEntity.ok("회원등록 완료");
+      }
+      return ResponseEntity.badRequest().body("회원가입 실패");
     } catch (Exception e) {
       log.error(e.toString());
-      return ResponseEntity.badRequest().body("회원등록 중 에러 발생");
+      return ResponseEntity.internalServerError().body(e.getMessage());
     }
   }
 }
