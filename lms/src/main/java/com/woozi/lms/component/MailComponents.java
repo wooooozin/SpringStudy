@@ -5,5 +5,5 @@ import org.springframework.stereotype.Component;
 @Component
 public class MailComponents {
 
-    // wvno rrjn zmsn bqic
+  
 }
