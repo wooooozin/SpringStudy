@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -33,6 +34,10 @@ public class Member {
 
   private LocalDateTime regDT;
 
+  private boolean emailAuthYn;
+
+  private String emailAuthKey;
+
   public static Member from(MemberRequestDto member) {
     Member registerMember = new Member();
     registerMember.setMemberName(member.getUserName());
@@ -40,6 +45,8 @@ public class Member {
     registerMember.setPassword(member.getPassword());
     registerMember.setPhone(member.getPhone());
     registerMember.setRegDT(LocalDateTime.now());
+    registerMember.setEmailAuthYn(false);
+    registerMember.setEmailAuthKey(UUID.randomUUID().toString());
     return registerMember;
   }
 }

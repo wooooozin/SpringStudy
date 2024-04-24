@@ -1,5 +1,6 @@
 package com.woozi.lms.member;
 
+import com.woozi.lms.component.MailComponents;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
   private final MemberRepository memberRepository;
+  private final MailComponents mailComponents;
 
   @Transactional
   public boolean registerMember(MemberRequestDto member) {
@@ -24,6 +26,13 @@ public class MemberService {
     Member savbedMember = Member.from(member);
     try {
       memberRepository.save(savbedMember);
+
+      String email = savbedMember.getEmail();
+      String sub = "회원 가입 인증메일";
+      String uuid = savbedMember.getEmailAuthKey();
+      String text = "<p>이메일 인증을 확인해주세요.</p>"
+          + "<div><a href='http://localhost:8080/member/email-auth?id=" + uuid + "'> 가입완료</a></div>";
+      mailComponents.sendMail(email, sub, text);
       return true;
     } catch (DataIntegrityViolationException e) {
       log.error("가입 시도 중 데이터 무결성 위반: ", e);
