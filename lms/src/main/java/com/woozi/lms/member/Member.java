@@ -34,6 +34,8 @@ public class Member {
 
   private LocalDateTime regDT;
 
+  private LocalDateTime emailAuthDt;
+
   private boolean emailAuthYn;
 
   private String emailAuthKey;

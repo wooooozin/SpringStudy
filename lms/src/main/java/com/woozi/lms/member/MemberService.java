@@ -1,6 +1,7 @@
 package com.woozi.lms.member;
 
 import com.woozi.lms.component.MailComponents;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,5 +39,17 @@ public class MemberService {
       log.error("가입 시도 중 데이터 무결성 위반: ", e);
       throw e;
     }
+  }
+
+  public boolean emailAuthByUUID(String id) {
+    Optional<Member> optionalMember = memberRepository.findByEmailAuthKey(id);
+    if ( optionalMember.isEmpty()) {
+      return false;
+    }
+    Member member = optionalMember.get();
+    member.setEmailAuthYn(true);
+    member.setEmailAuthDt(LocalDateTime.now());
+    memberRepository.save(member);
+    return true;
   }
 }
