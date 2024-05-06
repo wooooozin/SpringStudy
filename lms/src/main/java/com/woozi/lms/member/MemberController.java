@@ -51,4 +51,10 @@ public class MemberController {
     model.addAttribute("result", isAuth);
     return "member/email_auth";
   }
+
+  @GetMapping("/info")
+  public String memberInfo() {
+    return "member/info";
+  }
+
 }
